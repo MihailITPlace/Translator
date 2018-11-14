@@ -72,5 +72,66 @@ namespace Translator
 
             return result;
         }
+
+        public List<string> GetOperators(string code)
+        {
+            var result = new List<string>();
+
+            int startOperBlock = code.IndexOf("begin");
+            int endVarBlock = code.IndexOf("end.");
+
+            string operatorsBlock = code.Substring(startOperBlock + "begin".Length,
+                endVarBlock - (startOperBlock + "begin".Length));
+
+
+            var operators = operatorsBlock.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var i in operators)
+            {
+                var lineOperator = i.Trim();
+
+                if (lineOperator.Contains(":="))
+                {
+                    result.Add(ParseAssignment(lineOperator));
+                    //throw new NotImplementedException();
+                    //continue;
+                }
+
+                string nameOperator = lineOperator.Substring(0, lineOperator.IndexOf('('));
+
+                switch (nameOperator)
+                {
+                    case "write":
+                        result.Add(ParseWrite(lineOperator, false));
+                        break;
+                    case "readln":
+                        result.Add(ParseReadln(lineOperator));
+                        break;
+                    case "writeln":
+                        result.Add(ParseWrite(lineOperator, true));
+                        break;
+                    default:
+                        throw new Exception("Unknow name " + lineOperator);                        
+                }
+            }
+            
+
+            return result;
+        }
+
+        private string ParseAssignment(string lineOperator)
+        {
+            throw new NotImplementedException();
+        }
+
+        private string ParseReadln(string lineOperator)
+        {
+            throw new NotImplementedException();
+        }
+
+        private string ParseWrite(string lineOperator, bool newLine)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

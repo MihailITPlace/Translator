@@ -46,6 +46,8 @@ namespace Translator
             sw.WriteLine(bottom);
 
             sw.Close();
+
+            v.GetOperators(inputCode);
         }
     }
 }
