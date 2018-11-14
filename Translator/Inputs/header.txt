@@ -1,0 +1,7 @@
+format  PE console
+
+entry   start
+include 'win32ax.inc'
+include 'api\kernel32.inc'
+
+section '.data' data readable writeable

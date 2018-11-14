@@ -1,0 +1,11 @@
+section '.code' code readable executable
+start:
+    
+    invoke   ExitProcess, 0
+
+section '.idata' import data readable
+library kernel32, 'kernel32.dll',\
+        msvcrt, 'msvcrt.dll'
+ 
+import msvcrt,\
+       printf, 'printf', _getch,'_getch', scanf,'scanf'

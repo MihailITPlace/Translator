@@ -13,12 +13,12 @@ namespace Translator
         {
             Vocabulary v = new Vocabulary();
 
-            StreamReader sr = new StreamReader("input.pas");
+            StreamReader sr = new StreamReader("..\\..\\Inputs\\input.pas");
             var inputCode = sr.ReadToEnd();
             sr.Close();
 
-            StreamReader headerStream = new StreamReader("header.txt");
-            StreamReader bottomStream = new StreamReader("bottom.txt");
+            StreamReader headerStream = new StreamReader("..\\..\\Inputs\\header.txt");
+            StreamReader bottomStream = new StreamReader("..\\..\\Inputs\\bottom.txt");
 
             string header = headerStream.ReadToEnd();
             string bottom = bottomStream.ReadToEnd();
@@ -29,7 +29,7 @@ namespace Translator
             var variables = v.GetVariables(inputCode);
             var strings = v.GetConstantString(inputCode);
 
-            StreamWriter sw = new StreamWriter("output.asm");            
+            StreamWriter sw = new StreamWriter("..\\..\\Output\\output.asm");            
 
             sw.WriteLine(header);
 
