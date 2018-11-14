@@ -43,11 +43,21 @@ namespace Translator
                 sw.WriteLine(i.Value + " db '" + i.Key + "',0");
             }
 
+            sw.WriteLine(@"section '.code' code readable executable
+start:");
+
+            var qw = v.GetOperators(inputCode);
+
+            foreach (var i in qw)
+            {
+                sw.WriteLine(i);
+            }
+
             sw.WriteLine(bottom);
 
             sw.Close();
 
-            v.GetOperators(inputCode);
+            //v.GetOperators(inputCode);
         }
     }
 }

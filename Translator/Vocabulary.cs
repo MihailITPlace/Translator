@@ -9,6 +9,8 @@ namespace Translator
 {
     class Vocabulary
     {
+        private Dictionary<string, string> strings = null;
+        private HashSet<string> variables = null;
 
         public HashSet<string> GetVariables(string code)
         {
@@ -49,13 +51,15 @@ namespace Translator
                 }
             }
 
+            variables = result;
             return result;
         }
 
         public Dictionary<string, string> GetConstantString(string code)
         {
             var result = new Dictionary<string, string>();
-            
+
+            //var pattern = @"\'(.*?)\'";
             var pattern = @"('[^']*')";
             Regex reg = new Regex(pattern);
 
@@ -70,6 +74,7 @@ namespace Translator
                 }
             }
 
+            strings = result;
             return result;
         }
 
@@ -89,6 +94,11 @@ namespace Translator
             foreach (var i in operators)
             {
                 var lineOperator = i.Trim();
+
+                if (lineOperator == string.Empty)
+                {
+                    continue;
+                }
 
                 if (lineOperator.Contains(":="))
                 {
@@ -126,7 +136,14 @@ namespace Translator
 
         private string ParseReadln(string lineOperator)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            Regex reg = new Regex(@"\((.*?)\)");
+            var match = reg.Match(lineOperator);
+
+            var tmp = match.Value.Replace("(", "");
+            tmp = tmp.Replace(")", "");
+            string result = "cinvoke scanf, '%d', " + tmp;
+            return result;
         }
 
         private string ParseWrite(string lineOperator, bool newLine)

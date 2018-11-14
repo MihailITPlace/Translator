@@ -1,5 +1,4 @@
-section '.code' code readable executable
-start:
+
     
     invoke   ExitProcess, 0
 
